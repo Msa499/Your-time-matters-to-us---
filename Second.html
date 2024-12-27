@@ -13,20 +13,30 @@
       color: #333;
       direction: rtl;
       text-align: right;
+      background-image: linear-gradient(to bottom right, #fff, #f9f9f9);
     }
 
     .container {
       width: 90%;
       margin: 20px auto;
       padding: 20px;
-      background-color: white;
       border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      background-color: #fff;
     }
 
     h1 {
       text-align: center;
       color: #444;
+      font-size: 1.8rem;
+    }
+
+    h2 {
+      margin-top: 20px;
+      color: #333;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 5px;
+      font-size: 1.3rem;
     }
 
     .form-group {
@@ -77,6 +87,7 @@
     .dark-mode {
       background-color: #333;
       color: white;
+      background-image: linear-gradient(to bottom right, #333, #444);
     }
 
     .dark-mode input, .dark-mode select {
@@ -86,74 +97,142 @@
     }
 
     .toggle-dark-mode {
-      position: fixed;
+      position: absolute;
       top: 10px;
-      left: 10px;
-      font-size: 1.5rem;
+      right: 10px;
       cursor: pointer;
-      z-index: 1000;
-    }
-
-    .form-section {
-      margin-bottom: 20px;
-    }
-
-    .form-section h2 {
-      color: #555;
       font-size: 1.2rem;
-      margin-bottom: 10px;
+    }
+
+    .icon {
+      display: inline-block;
+      margin-left: 10px;
+    }
+
+    .sun {
+      color: orange;
+    }
+
+    .moon {
+      color: yellow;
     }
   </style>
 </head>
 <body>
-  <div class="toggle-dark-mode">☀️</div>
+  <div class="toggle-dark-mode">
+    <span class="icon sun">☀️</span>
+    <span class="icon moon">🌙</span>
+  </div>
 
   <div class="container">
     <h1>مرحلة التسجيل</h1>
     <form id="registrationForm">
-      <div class="form-section">
-        <h2>بيانات الطالب</h2>
-        <div class="form-group">
-          <label>الاسم الكامل</label>
-          <input type="text" id="studentFullName" placeholder="أدخل اسم الطالب" required>
-        </div>
-        <div class="form-group">
-          <label>رقم الهاتف</label>
-          <input type="tel" id="studentPhone" pattern="\d{11}" placeholder="أدخل رقم الهاتف" required>
-        </div>
-        <div class="form-group">
-          <label>تاريخ الميلاد</label>
-          <input type="date" id="studentBirthDate" required>
+      <h2>بيانات الطالب</h2>
+      <div class="form-group">
+<label for="studentFirstName">الاسم الأول</label>
+        <input type="text" id="studentFirstName" placeholder="أدخل الاسم الأول" required>
+      </div>
+      <div class="form-group">
+        <label for="studentSecondName">الاسم الثاني</label>
+        <input type="text" id="studentSecondName" placeholder="أدخل الاسم الثاني" required>
+      </div>
+      <div class="form-group">
+        <label for="studentThirdName">الاسم الثالث</label>
+        <input type="text" id="studentThirdName" placeholder="أدخل الاسم الثالث" required>
+      </div>
+      <div class="form-group">
+        <label for="studentFourthName">الاسم الرابع</label>
+        <input type="text" id="studentFourthName" placeholder="أدخل الاسم الرابع" required>
+      </div>
+      <div class="form-group">
+        <label for="studentPhone">رقم الهاتف</label>
+        <input type="tel" id="studentPhone" placeholder="أدخل رقم الهاتف" pattern="\\d{11}" required>
+      </div>
+      <div class="form-group">
+        <label for="studentCountry">الدولة</label>
+        <input type="text" id="studentCountry" placeholder="أدخل الدولة" required>
+      </div>
+      <div class="form-group">
+        <label for="studentGovernorate">المحافظة</label>
+        <input type="text" id="studentGovernorate" placeholder="أدخل المحافظة" required>
+      </div>
+      <div class="form-group">
+        <label for="studentSchoolName">اسم المدرسة</label>
+        <input type="text" id="studentSchoolName" placeholder="أدخل اسم المدرسة" required>
+      </div>
+      <div class="form-group">
+        <label for="studentSchoolAddress">عنوان المدرسة</label>
+        <input type="text" id="studentSchoolAddress" placeholder="أدخل عنوان المدرسة" required>
+      </div>
+      <div class="form-group">
+        <label for="studentEducationStage">المرحلة التعليمية</label>
+        <select id="studentEducationStage" required>
+          <option value="">اختر المرحلة</option>
+          <option value="ابتدائي">ابتدائي</option>
+          <option value="إعدادي">إعدادي</option>
+          <option value="ثانوي">ثانوي</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="studentEducationClass">الصف الدراسي</label>
+        <select id="studentEducationClass" required>
+          <option value="">اختر الصف</option>
+          <!-- Add all grades from أولى ابتدائي to ثالثة ثانوي -->
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="studentNationalID">الرقم القومي</label>
+        <input type="text" id="studentNationalID" placeholder="أدخل الرقم القومي" pattern="\\d{14}" required>
+      </div>
+      <div class="form-group">
+        <label>تاريخ الميلاد</label>
+        <div style="display: flex; gap: 10px;">
+          <input type="number" id="studentBirthDay" placeholder="اليوم" min="1" max="31" required>
+          <select id="studentBirthMonth" required>
+            <option value="">الشهر</option>
+            <option value="يناير">يناير</option>
+            <option value="فبراير">فبراير</option>
+            <!-- بقية الشهور -->
+          </select>
+          <input type="number" id="studentBirthYear" placeholder="السنة" min="1900" max="2024" required>
         </div>
       </div>
-
-      <div class="form-section">
-        <h2>بيانات ولي الأمر</h2>
-        <div class="form-group">
-          <label>الاسم الكامل</label>
-          <input type="text" id="guardianFullName" placeholder="أدخل اسم ولي الأمر" required>
-        </div>
-        <div class="form-group">
-          <label>رقم الهاتف</label>
-          <input type="tel" id="guardianPhone" pattern="\d{11}" placeholder="أدخل رقم الهاتف" required>
-        </div>
-        <div class="form-group">
-          <label>تحميل شهادة الميلاد</label>
-          <input type="file" id="birthCertificate" accept="image/*" required>
-        </div>
-      </div>
-
+      <h2>بيانات ولي الأمر</h2>
+      <!-- بيانات ولي الأمر بنفس التنسيق -->
       <button type="submit">تسجيل</button>
     </form>
   </div>
 
   <script>
-    // تبديل الوضع الداكن والفاتح
-    const toggleDarkMode = document.querySelector('.toggle-dark-mode');
-    toggleDarkMode.addEventListener('click', () => {
+    // التبديل بين الوضع الداكن والفاتح
+    document.querySelector('.toggle-dark-mode').addEventListener('click', function() {
       document.body.classList.toggle('dark-mode');
-      toggleDarkMode.textContent = document.body.classList.contains('dark-mode') ? '🌙' : '☀️';
+    });
+
+    // التحقق من صحة الإدخال
+    document.querySelector('#registrationForm').addEventListener('submit', function(event) {
+      // التحقق من أن جميع البيانات مدخلة بشكل صحيح
+      const inputs = document.querySelectorAll('input, select');
+      let isValid = true;
+
+      inputs.forEach(input => {
+        if (!input.value) {
+          input.style.borderColor = 'red';
+          isValid = false;
+        } else {
+          input.style.borderColor = '';
+        }
+      });
+
+      if (!isValid) {
+        event.preventDefault();
+        alert('من فضلك، املأ جميع الحقول بشكل صحيح.');
+      } else {
+        window.location.href = 'third.html';
+      }
     });
   </script>
 </body>
-</html>
+      </html>
+
+        
