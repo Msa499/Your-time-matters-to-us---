@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -6,14 +7,22 @@
   <title>مرحلة التسجيل</title>
   <style>
     body {
-      font-family: 'Arial', sans-serif;
+      font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f4f4f4;
+      background-color: white;
       color: #333;
       direction: rtl;
       text-align: right;
-      background-image: linear-gradient(to bottom right, #fff, #dce2e9);
+      background-color: #f9f9f9;
+      overflow: hidden;
+      animation: moveBackground 60s infinite linear;
+    }
+
+    @keyframes moveBackground {
+      0% { background-image: url('clock1.gif'); }
+      50% { background-image: url('clock2.gif'); }
+      100% { background-image: url('clock1.gif'); }
     }
 
     .container {
@@ -23,14 +32,12 @@
       border-radius: 10px;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
       background-color: #fff;
-      border-top: 5px solid #007bff; /* إضافة شريط علوي ملون */
-      position: relative;
     }
 
     h1 {
       text-align: center;
       color: #444;
-      font-size: 2rem;
+      font-size: 1.8rem;
     }
 
     h2 {
@@ -48,8 +55,7 @@
     label {
       display: block;
       margin-bottom: 5px;
-      font-size: 1.1rem;
-      color: #555;
+      font-size: 1rem;
     }
 
     input, select {
@@ -75,7 +81,6 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
     }
 
     button:hover {
@@ -88,16 +93,8 @@
       margin-top: 5px;
     }
 
-    .dark-mode {
-      background-color: #333;
-      color: white;
-      background-image: linear-gradient(to bottom right, #333, #444);
-    }
-
-    .dark-mode input, .dark-mode select {
-      background-color: #444;
-      color: white;
-      border-color: #666;
+    .toggle-dark-mode {
+      display: none;
     }
 
     .toggle-dark-mode {
@@ -105,7 +102,7 @@
       top: 10px;
       right: 10px;
       cursor: pointer;
-      font-size: 1.5rem;
+      font-size: 1.2rem;
     }
 
     .icon {
@@ -121,26 +118,9 @@
       color: yellow;
     }
 
-    /* إضافة نقوش لصفحة */
-    .container::before {
-      content: "";
-      position: absolute;
-      top: 10%;
-      left: 10%;
-      width: 80%;
-      height: 80%;
-      background-image: url('https://www.transparenttextures.com/patterns/circuit-board-1.png');
-      opacity: 0.1;
-      pointer-events: none;
-    }
   </style>
 </head>
 <body>
-  <div class="toggle-dark-mode">
-    <span class="icon sun">☀️</span>
-    <span class="icon moon">🌙</span>
-  </div>
-
   <div class="container">
     <h1>مرحلة التسجيل</h1>
     <form id="registrationForm">
@@ -166,66 +146,39 @@
         <input type="tel" id="studentPhone" placeholder="أدخل رقم الهاتف" pattern="\\d{11}" required>
       </div>
       <div class="form-group">
-        <label for="studentCountry">الدولة</label>
-        <input type="text" id="studentCountry" placeholder="أدخل الدولة" required>
-      </div>
-      <div class="form-group">
-        <label for="studentGovernorate">المحافظة</label>
-        <input type="text" id="studentGovernorate" placeholder="أدخل المحافظة" required>
-      </div>
-      <div class="form-group">
-        <label for="studentSchoolName">اسم المدرسة</label>
-        <input type="text" id="studentSchoolName" placeholder="أدخل اسم المدرسة" required>
-      </div>
-      <div class="form-group">
-        <label for="studentSchoolAddress">عنوان المدرسة</label>
-        <input type="text" id="studentSchoolAddress" placeholder="أدخل عنوان المدرسة" required>
-      </div>
-      <div class="form-group">
-        <label for="studentEducationStage">المرحلة التعليمية</label>
-        <select id="studentEducationStage" required>
-          <option value="">اختر المرحلة</option>
-          <option value="ابتدائي">ابتدائي</option>
-          <option value="إعدادي">إعدادي</option>
-          <option value="ثانوي">ثانوي</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="studentEducationClass">الصف الدراسي</label>
-        <select id="studentEducationClass" required>
-          <option value="">اختر الصف</option>
-          <!-- Add all grades from أولى ابتدائي to ثالثة ثانوي -->
-        </select>
-      </div>
-      <div class="form-group">
         <label for="studentNationalID">الرقم القومي</label>
         <input type="text" id="studentNationalID" placeholder="أدخل الرقم القومي" pattern="\\d{14}" required>
       </div>
-      <div class="form-group">
-        <label>تاريخ الميلاد</label>
-        <div style="display: flex; gap: 10px;">
-          <input type="number" id="studentBirthDay" placeholder="اليوم" min="1" max="31" required>
-          <select id="studentBirthMonth" required>
-            <option value="">الشهر</option>
-            <option value="يناير">يناير</option>
-            <option value="فبراير">فبراير</option>
-            <!-- بقية الشهور -->
-          </select>
-          <input type="number" id="studentBirthYear" placeholder="السنة" min="1900" max="2024" required>
-        </div>
-      </div>
       <h2>بيانات ولي الأمر</h2>
-      <!-- بيانات ولي الأمر بنفس التنسيق -->
+      <div class="form-group">
+        <label for="parentFirstName">الاسم الأول لولي الأمر</label>
+        <input type="text" id="parentFirstName" placeholder="أدخل الاسم الأول لولي الأمر" required>
+      </div>
+      <div class="form-group">
+        <label for="parentSecondName">الاسم الثاني لولي الأمر</label>
+        <input type="text" id="parentSecondName" placeholder="أدخل الاسم الثاني لولي الأمر" required>
+      </div>
+      <div class="form-group">
+        <label for="parentThirdName">الاسم الثالث لولي الأمر</label>
+        <input type="text" id="parentThirdName" placeholder="أدخل الاسم الثالث لولي الأمر" required>
+      </div>
+      <div class="form-group">
+        <label for="parentFourthName">الاسم الرابع لولي الأمر</label>
+        <input type="text" id="parentFourthName" placeholder="أدخل الاسم الرابع لولي الأمر" required>
+      </div>
+      <div class="form-group">
+        <label for="parentPhone">رقم الهاتف لولي الأمر</label>
+        <input type="tel" id="parentPhone" placeholder="أدخل رقم الهاتف لولي الأمر" pattern="\\d{11}" required>
+      </div>
+      <div class="form-group">
+        <label for="parentNationalID">الرقم القومي لولي الأمر</label>
+        <input type="text" id="parentNationalID" placeholder="أدخل الرقم القومي لولي الأمر" pattern="\\d{14}" required>
+      </div>
       <button type="submit">تسجيل</button>
     </form>
   </div>
 
   <script>
-    // التبديل بين الوضع الداكن والفاتح
-    document.querySelector('.toggle-dark-mode').addEventListener('click', function() {
-      document.body.classList.toggle('dark-mode');
-    });
-
     // التحقق من صحة الإدخال
     document.querySelector('#registrationForm').addEventListener('submit', function(event) {
       // التحقق من أن جميع البيانات مدخلة بشكل صحيح
