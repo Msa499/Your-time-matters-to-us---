@@ -1,282 +1,290 @@
+
 <!DOCTYPE html>
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>التسجيل</title>
+  <title>مرحلة التسجيل</title>
   <style>
-    /* إعدادات الخلفية */
     body {
       font-family: "Arial", sans-serif;
       margin: 0;
       padding: 0;
       text-align: center;
-      background-color: white;
-      color: black;
+      color: white;
+      background: linear-gradient(45deg, #ff6b6b, #f7b7a3, #9b59b6, #3498db);
+      background-size: 400% 400%;
+      animation: gradient 10s ease infinite;
+      overflow: hidden;
     }
 
-    /* النصوص */
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      width: 80%;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 10px;
+    }
+
     h1 {
       margin-top: 20px;
       font-size: 2.5rem;
+      font-family: "Tahoma", sans-serif;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
 
-    p {
-      font-size: 1.2rem;
+    .form-group {
       margin: 10px 0;
-    }
-
-    /* النماذج */
-    .form-container {
-      width: 80%;
-      max-width: 600px;
-      margin: 20px auto;
-      padding: 20px;
-      border-radius: 10px;
-      background-color: #f9f9f9;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: right;
+      position: relative;
     }
 
     label {
+      font-size: 1.2rem;
+      margin-bottom: 5px;
       display: block;
-      margin: 10px 0;
-      text-align: right;
-      font-weight: bold;
     }
 
     input, select {
       width: 100%;
       padding: 10px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
+      font-size: 1rem;
+      margin-top: 5px;
       border-radius: 5px;
-      font-size: 1rem;
+      border: 1px solid #ccc;
+      background-color: #f1f1f1;
+      color: #333;
+      text-align: right;
     }
 
-    input[type="file"] {
-      border: none;
+    input:focus, select:focus {
+      border-color: #3498db;
+      outline: none;
     }
 
-    .error-message {
-      color: red;
-      font-size: 1rem;
-      margin-bottom: 10px;
-      display: none;
-    }
-
-    /* الزر */
-    .submit-button {
+    button {
       background-color: #1e3799;
       color: white;
-      padding: 15px 30px;
+      padding: 10px 20px;
       font-size: 1.2rem;
       font-weight: bold;
       border-radius: 10px;
       margin-top: 20px;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
 
-    .submit-button:hover {
+    button:hover {
       background-color: #4a69bd;
     }
 
-    /* زر تغيير الخلفية */
+    .error {
+      color: red;
+      font-size: 1rem;
+    }
+
     .toggle-button {
       position: fixed;
-      top: 20px;
-      left: 20px;
-      background-color: transparent;
+      top: 10px;
+      left: 10px;
+      background-color: #f1c40f;
+      color: black;
       border: none;
-      font-size: 2rem;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 5px;
       cursor: pointer;
-      transition: transform 0.3s ease;
+      transition: background-color 0.3s ease;
     }
 
-    .toggle-button:before {
-      content: "\2600"; /* شمس */
-      color: #f1c40f;
-      transition: content 0.3s ease;
+    .toggle-button:hover {
+      background-color: #e67e22;
     }
 
-    .dark-mode .toggle-button:before {
-      content: "\263D"; /* قمر */
-      color: #2c3e50;
+    .decorative-input {
+      border-radius: 15px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     }
 
-    /* تنسيق داكن */
-    .dark-mode {
-      background-color: #333;
-      color: white;
+    .form-group select {
+      font-size: 1rem;
+      padding: 10px;
     }
 
-    .dark-mode .form-container {
-      background-color: #444;
-      color: white;
-    }
-
-    /* النقوش */
-    .pattern {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 100%;
-      height: 100%;
-      background: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3) 20px, transparent 20px, transparent 40px);
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .dark-mode .pattern {
-      background: repeating-linear-gradient(45deg, rgba(0, 0, 255, 0.3), rgba(0, 0, 255, 0.3) 20px, transparent 20px, transparent 40px);
-    }
-
-    .light-mode .pattern {
-      background: repeating-linear-gradient(45deg, rgba(173, 216, 230, 0.3), rgba(173, 216, 230, 0.3) 20px, transparent 20px, transparent 40px);
-    }
   </style>
 </head>
 <body>
-  <h1>مرحبا بك في صفحة التسجيل</h1>
-  <div class="form-container">
-    <!-- بيانات الطالب -->
-    <h2>بيانات الطالب</h2>
-    <form id="registration-form">
-      <label for="first-name">الاسم الأول:</label>
-      <input type="text" id="first-name" required>
-
-      <label for="second-name">الاسم الثاني:</label>
-      <input type="text" id="second-name" required>
-
-      <label for="third-name">الاسم الثالث:</label>
-      <input type="text" id="third-name" required>
-
-      <label for="full-name">الاسم الرباعي:</label>
-      <input type="text" id="full-name" required>
-
-      <label for="phone">رقم الهاتف:</label>
-      <input type="text" id="phone" required pattern="^\d{11}$" title="يجب أن يتكون الرقم من 11 رقماً">
-
-      <label for="country">الدولة:</label>
-      <input type="text" id="country" required>
-
-      <label for="governorate">المحافظة:</label>
-      <input type="text" id="governorate" required>
-
-      <label for="school-name">اسم المدرسة:</label>
-      <input type="text" id="school-name" required>
-
-      <label for="school-address">عنوان المدرسة:</label>
-      <input type="text" id="school-address" required>
-
-      <label for="national-id">رقم القومي:</label>
-      <input type="text" id="national-id" required pattern="^\d{14}$" title="يجب أن يتكون الرقم من 14 رقماً">
-
-      <label for="dob-day">تاريخ الميلاد:</label>
-      <div>
-        <input type="number" id="dob-day" placeholder="اليوم" required min="1" max="31">
-        <select id="dob-month" required>
-          <option value="">الشهر</option>
-          <option value="1">يناير</option>
-          <option value="2">فبراير</option>
-          <option value="3">مارس</option>
-          <option value="4">أبريل</option>
-          <option value="5">مايو</option>
-          <option value="6">يونيو</option>
-          <option value="7">يوليو</option>
-          <option value="8">أغسطس</option>
-          <option value="9">سبتمبر</option>
-          <option value="10">أكتوبر</option>
-          <option value="11">نوفمبر</option>
-          <option value="12">ديسمبر</option>
-        </select>
-        <input type="number" id="dob-year" placeholder="السنة" required min="1900" max="2024">
+  <div class="container">
+    <h1>التسجيل في الحكاية</h1>
+    <form id="registrationForm">
+      <!-- بيانات الطالب -->
+      <div class="form-group">
+        <label for="studentFirstName">الاسم الأول</label>
+        <input type="text" id="studentFirstName" name="studentFirstName" class="decorative-input" required>
+      </div>
+      <div class="form-group">
+        <label for="studentSecondName">الاسم الثاني</label>
+        <input type="text" id="studentSecondName" name="studentSecondName" class="decorative-input" required>
+      </div>
+      <div class="form-group">
+        <label for="studentThirdName">الاسم الثالث</label>
+        <input type="text" id="studentThirdName" name="studentThirdName" class="decorative-input" required>
+      </div>
+      <div class="form-group">
+        <label for="studentFullName">الاسم الرباعي</label>
+        <input type="text" id="studentFullName" name="studentFullName" class="decorative-input" required>
+      </div>
+      <div class="form-group">
+        <label for="phoneNumber">رقم الهاتف</label>
+        <input type="tel" id="phoneNumber" name="phoneNumber" class="decorative-input" pattern="\d{11}" required>
+      </div>
+      <div class="form-group">
+        <label for="country">الدولة</label>
+        <input type="text" id="country" name="country" class="decorative-input" required>
+      </div>
+      <div class="form-group">
+        <label for="governorate">المحافظة</label>
+        <input type="text" id="governorate" name="governorate" class="decorative-input" required>
+      </div>
+      <div class="form-group">
+        <label for="schoolName">اسم المدرسة</label>
+        <input type="text" id="schoolName" name="schoolName" class="decorative-input" required>
+      </div>
+      <div class="form-group">
+        <label for="schoolAddress">عنوان المدرسة</label>
+        <input type="text" id="schoolAddress" name="schoolAddress" class="decorative-input" required>
       </div>
 
+      <!-- خانة المرحلة و الصف -->
+      <div class="form-group">
+        <label for="studentGrade">المرحلة والصف</label>
+        <select id="studentGrade" name="studentGrade" class="decorative-input" required onchange="toggleClassSection()">
+          <option value="">اختر المرحلة</option>
+          <option value="primary">المرحلة الابتدائية</option>
+          <option value="intermediate">المرحلة الإعدادية</option>
+          <option value="secondary">المرحلة الثانوية</option>
+        </select>
+        <select id="studentClass" name="studentClass" class="decorative-input" style="display:none;">
+          <option value="">اختر الصف</option>
+          <option value="second">الصف الثانية</option>
+          <option value="third">الصف الثالثة</option>
+        </select>
+        <select id="studentSpecialization" name="studentSpecialization" class="decorative-input" style="display:none;">
+          <option value="">اختر التخصص</option>
+          <option value="sciences">علمي علوم</option>
+          <option value="math">علمي رياضيات</option>
+          <option value="literature">أدبي</option>
+        </select>
+      </div>
+
+      <!-- بيانات ولي الأمر -->
       <h2>بيانات ولي الأمر</h2>
-      <label for="guardian-first-name">الاسم الأول لولي الأمر:</label>
-      <input type="text" id="guardian-first-name" required>
-
-      <label for="guardian-second-name">الاسم الثاني لولي الأمر:</label>
-      <input type="text" id="guardian-second-name" required>
-
-      <label for="guardian-third-name">الاسم الثالث لولي الأمر:</label>
-      <input type="text" id="guardian-third-name" required>
-
-      <label for="guardian-full-name">الاسم الرباعي لولي الأمر:</label>
-      <input type="text" id="guardian-full-name" required>
-
-      <label for="guardian-phone">رقم المحمول لولي الأمر:</label>
-      <input type="text" id="guardian-phone" required pattern="^\d{11}$" title="يجب أن يتكون الرقم من 11 رقماً">
-
-      <label for="guardian-national-id">رقم القومي لولي الأمر:</label>
-      <input type="text" id="guardian-national-id" required pattern="^\d{14}$" title="يجب أن يتكون الرقم من 14 رقماً">
-
-      <label for="guardian-dob-day">تاريخ الميلاد لولي الأمر:</label>
-      <div>
-        <input type="number" id="guardian-dob-day" placeholder="اليوم" required min="1" max="31">
-        <select id="guardian-dob-month" required>
-          <option value="">الشهر</option>
-          <option value="1">يناير</option>
-          <option value="2">فبراير</option>
-          <option value="3">مارس</option>
-          <option value="4">أبريل</option>
-          <option value="5">مايو</option>
-          <option value="6">يونيو</option>
-          <option value="7">يوليو</option>
-          <option value="8">أغسطس</option>
-          <option value="9">سبتمبر</option>
-          <option value="10">أكتوبر</option>
-          <option value="11">نوفمبر</option>
-          <option value="12">ديسمبر</option>
+      <div class="form-group">
+        <label for="parentFirstName">الاسم الأول</label>
+        <input type="text" id="parentFirstName" name="parentFirstName" class="decorative-input" required>
+      </div>
+      <div class="form-group">
+        <label for="parentSecondName">الاسم الثاني</label>
+        <input type="text" id="parentSecondName" name="parentSecondName" class="decorative-input" required>
+      </div>
+      <div class="form-group">
+        <label for="parentThirdName">الاسم الثالث</label>
+        <input type="text" id="parentThirdName" name="parentThirdName" class="decorative-input" required>
+      </div>
+      <div class="form-group">
+        <label for="parentFullName">الاسم الرباعي</label>
+        <input type="text" id="parentFullName" name="parentFullName" class="decorative-input" required>
+      </div>
+      <div class="form-group">
+        <label for="parentPhone">رقم المحمول</label>
+        <input type="tel" id="parentPhone" name="parentPhone" class="decorative-input" pattern="\d{11}" required>
+      </div>
+      <div class="form-group">
+        <label for="parentNationalID">رقم القومي</label>
+        <input type="text" id="parentNationalID" name="parentNationalID" class="decorative-input" pattern="\d{14}" required>
+      </div>
+      <div class="form-group">
+        <label for="parentBirthDay">تاريخ الميلاد</label>
+        <input type="number" id="parentBirthDay" name="parentBirthDay" placeholder="اليوم" class="decorative-input" required>
+        <select id="parentBirthMonth" name="parentBirthMonth" class="decorative-input" required>
+          <option value="">اختر الشهر</option>
+          <option value="January">يناير</option>
+          <option value="February">فبراير</option>
+          <option value="March">مارس</option>
+          <option value="April">أبريل</option>
+          <option value="May">مايو</option>
+          <option value="June">يونيو</option>
+          <option value="July">يوليو</option>
+          <option value="August">أغسطس</option>
+          <option value="September">سبتمبر</option>
+          <option value="October">أكتوبر</option>
+          <option value="November">نوفمبر</option>
+          <option value="December">ديسمبر</option>
         </select>
-        <input type="number" id="guardian-dob-year" placeholder="السنة" required min="1900" max="2024">
+        <input type="number" id="parentBirthYear" name="parentBirthYear" placeholder="السنة" class="decorative-input" required>
       </div>
 
-      <label for="birth-certificate">تحميل شهادة الميلاد:</label>
-      <input type="file" id="birth-certificate" required>
+      <!-- تحميل شهاده الميلاد -->
+      <div class="form-group">
+        <label for="birthCertificate">تحميل شهادة الميلاد</label>
+        <input type="file" id="birthCertificate" name="birthCertificate" accept="image/*" class="decorative-input" required>
+      </div>
 
-      <button type="submit" class="submit-button">تسجيل</button>
-
-      <div class="error-message" id="error-message">يرجى التأكد من إدخال البيانات بشكل صحيح.</div>
+      <!-- إرسال البيانات -->
+      <button type="submit">تسجيل</button>
     </form>
+
+    <div id="error-message" class="error"></div>
   </div>
 
-  <!-- زر تغيير الخلفية -->
-  <button class="toggle-button" onclick="toggleTheme()"></button>
+  <button class="toggle-button" onclick="toggleTheme()">تغيير الخلفية</button>
 
   <script>
     // تغيير الخلفية بين الفاتح والداكن
     function toggleTheme() {
-      document.body.classList.toggle("dark-mode");
-      document.body.classList.toggle("light-mode");
+      if (document.body.style.backgroundColor === "white") {
+        document.body.style.backgroundColor = "#f0f0f0";
+        document.body.style.color = "black";
+      } else {
+        document.body.style.backgroundColor = "black";
+        document.body.style.color = "white";
+      }
     }
 
-    // التأكد من صحة البيانات
-    document.getElementById("registration-form").addEventListener("submit", function(event) {
-      event.preventDefault();
+    // إظهار أو إخفاء التخصص حسب المرحلة
+    function toggleClassSection() {
+      var grade = document.getElementById("studentGrade").value;
+      var classSection = document.getElementById("studentClass");
+      var specialization = document.getElementById("studentSpecialization");
 
-      // التحقق من صحة المدخلات
-      let isValid = true;
-      let errorMessage = document.getElementById("error-message");
-
-      // إضافة التحقق من البيانات الخاصة بالطالب وولي الأمر هنا
-
-      if (isValid) {
-        // حفظ البيانات في الlocalStorage بحيث لا يتم التسجيل مرة أخرى
-        localStorage.setItem("student-data", JSON.stringify({
-          firstName: document.getElementById("first-name").value,
-          secondName: document.getElementById("second-name").value,
-          // إضافة باقي البيانات هنا
-        }));
-
-        // التوجه للملف الثالث بعد التسجيل الناجح
-        window.location.href = "next.html";
+      if (grade === "secondary") {
+        classSection.style.display = "inline-block";
       } else {
-        // عرض رسالة الخطأ
-        errorMessage.style.display = "block";
+        classSection.style.display = "none";
+        specialization.style.display = "none";
       }
-    });
-  </script>
-</body>
-</html>
+
+      if (grade === "secondary" && document.getElementById("studentClass").value) {
+        specialization.style.display = "inline-block";
+      } else {
+        specialization.style.display = "none";
+      }
+    }
+
+    // التحقق من صحة البيانات قبل الإرسال
+    document.getElementById("registrationForm").onsubmit = function(event) {
+      event.preventDefault();
+      let isValid = true;
+
+      // التحقق من أن جميع الحقول تم ملؤها بشكل صحيح
+      const requiredFields = document.querySelectorAll("input[required], select[required]");
+      requiredFields.forEach(field => {
+        if (!field.value) {
+          isValid
+    
