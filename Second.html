@@ -1,5 +1,4 @@
-
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
@@ -10,42 +9,39 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: white;
+      background-color: #f4f4f4;
       color: #333;
       direction: rtl;
       text-align: right;
-      background-color: #f9f9f9;
-      overflow: hidden;
-      animation: moveBackground 60s infinite linear;
+      background-image: linear-gradient(45deg, #FFD700, #FF6347);
+      animation: backgroundAnimation 5s infinite;
     }
 
-    @keyframes moveBackground {
-      0% { background-image: url('clock1.gif'); }
-      50% { background-image: url('clock2.gif'); }
-      100% { background-image: url('clock1.gif'); }
+    @keyframes backgroundAnimation {
+      0% { background-image: linear-gradient(45deg, #FFD700, #FF6347); }
+      50% { background-image: linear-gradient(45deg, #FF6347, #FFD700); }
+      100% { background-image: linear-gradient(45deg, #FFD700, #FF6347); }
     }
 
     .container {
-      width: 90%;
+      width: 80%;
       margin: 20px auto;
       padding: 20px;
       border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       background-color: #fff;
+      border: 2px solid rgba(0, 0, 0, 0.3); /* برواز أسود شفاف */
     }
 
     h1 {
       text-align: center;
       color: #444;
-      font-size: 1.8rem;
     }
 
     h2 {
       margin-top: 20px;
       color: #333;
-      border-bottom: 2px solid #ccc;
-      padding-bottom: 5px;
-      font-size: 1.3rem;
+      text-align: center;
     }
 
     .form-group {
@@ -55,10 +51,9 @@
     label {
       display: block;
       margin-bottom: 5px;
-      font-size: 1rem;
     }
 
-    input, select {
+    input, select, button {
       width: 100%;
       padding: 10px;
       font-size: 1rem;
@@ -93,38 +88,28 @@
       margin-top: 5px;
     }
 
-    .toggle-dark-mode {
-      display: none;
+    .blue-link {
+      color: blue;
+      text-decoration: none;
     }
 
-    .toggle-dark-mode {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      cursor: pointer;
-      font-size: 1.2rem;
+    .blue-link:hover {
+      text-decoration: underline;
     }
 
-    .icon {
-      display: inline-block;
-      margin-left: 10px;
+    .file-input {
+      background-color: #fff;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
     }
-
-    .sun {
-      color: orange;
-    }
-
-    .moon {
-      color: yellow;
-    }
-
   </style>
 </head>
 <body>
   <div class="container">
     <h1>مرحلة التسجيل</h1>
+    <h2>بيانات الطالب</h2>
     <form id="registrationForm">
-      <h2>بيانات الطالب</h2>
       <div class="form-group">
         <label for="studentFirstName">الاسم الأول</label>
         <input type="text" id="studentFirstName" placeholder="أدخل الاسم الأول" required>
@@ -149,58 +134,110 @@
         <label for="studentNationalID">الرقم القومي</label>
         <input type="text" id="studentNationalID" placeholder="أدخل الرقم القومي" pattern="\\d{14}" required>
       </div>
-      <h2>بيانات ولي الأمر</h2>
       <div class="form-group">
-        <label for="parentFirstName">الاسم الأول لولي الأمر</label>
-        <input type="text" id="parentFirstName" placeholder="أدخل الاسم الأول لولي الأمر" required>
+        <label for="studentBirthDay">تاريخ الميلاد</label>
+        <div style="display: flex; gap: 10px;">
+          <input type="number" id="studentBirthDay" placeholder="اليوم" min="1" max="31" required>
+          <select id="studentBirthMonth" required>
+            <option value="">الشهر</option>
+            <option value="يناير">يناير</option>
+            <option value="فبراير">فبراير</option>
+            <option value="مارس">مارس</option>
+            <option value="أبريل">أبريل</option>
+            <option value="مايو">مايو</option>
+            <option value="يونيو">يونيو</option>
+            <option value="يوليو">يوليو</option>
+            <option value="أغسطس">أغسطس</option>
+            <option value="سبتمبر">سبتمبر</option>
+            <option value="أكتوبر">أكتوبر</option>
+            <option value="نوفمبر">نوفمبر</option>
+            <option value="ديسمبر">ديسمبر</option>
+          </select>
+          <input type="number" id="studentBirthYear" placeholder="السنة" min="1900" max="2024" required>
+        </div>
       </div>
       <div class="form-group">
-        <label for="parentSecondName">الاسم الثاني لولي الأمر</label>
-        <input type="text" id="parentSecondName" placeholder="أدخل الاسم الثاني لولي الأمر" required>
+        <label for="birthCertificate">تحميل شهادة الميلاد</label>
+        <input type="file" id="birthCertificate" class="file-input" required>
       </div>
       <div class="form-group">
-        <label for="parentThirdName">الاسم الثالث لولي الأمر</label>
-        <input type="text" id="parentThirdName" placeholder="أدخل الاسم الثالث لولي الأمر" required>
+        <label for="studentGrade">المرحلة</label>
+        <select id="studentGrade" required>
+          <option value="">اختر المرحلة</option>
+          <option value="ابتدائي">ابتدائي</option>
+          <option value="إعدادي">إعدادي</option>
+          <option value="ثانوي">ثانوي</option>
+        </select>
       </div>
       <div class="form-group">
-        <label for="parentFourthName">الاسم الرابع لولي الأمر</label>
-        <input type="text" id="parentFourthName" placeholder="أدخل الاسم الرابع لولي الأمر" required>
+        <label for="studentClass">الصف</label>
+        <select id="studentClass" required>
+          <option value="">اختر الصف</option>
+          <option value="أولى ابتدائي">أولى ابتدائي</option>
+          <option value="ثانية ابتدائي">ثانية ابتدائي</option>
+          <option value="ثالثة ابتدائي">ثالثة ابتدائي</option>
+          <option value="رابعة ابتدائي">رابعة ابتدائي</option>
+          <option value="خامسة ابتدائي">خامسة ابتدائي</option>
+          <option value="سادسة ابتدائي">سادسة ابتدائي</option>
+          <option value="أولى إعدادي">أولى إعدادي</option>
+          <option value="ثانية إعدادي">ثانية إعدادي</option>
+          <option value="ثالثة إعدادي">ثالثة إعدادي</option>
+          <option value="أولى ثانوي">أولى ثانوي</option>
+          <option value="ثانية ثانوي">ثانية ثانوي</option>
+          <option value="ثالثة ثانوي">ثالثة ثانوي</option>
+        </select>
       </div>
       <div class="form-group">
-        <label for="parentPhone">رقم الهاتف لولي الأمر</label>
-        <input type="tel" id="parentPhone" placeholder="أدخل رقم الهاتف لولي الأمر" pattern="\\d{11}" required>
+        <label for="schoolName">اسم المدرسة</label>
+        <input type="text" id="schoolName" placeholder="أدخل اسم المدرسة" required>
       </div>
       <div class="form-group">
-        <label for="parentNationalID">الرقم القومي لولي الأمر</label>
-        <input type="text" id="parentNationalID" placeholder="أدخل الرقم القومي لولي الأمر" pattern="\\d{14}" required>
+        <label for="schoolAddress">عنوان المدرسة</label>
+        <input type="text" id="schoolAddress" placeholder="أدخل عنوان المدرسة" required>
+      </div>
+      <div class="form-group">
+        <label for="country">البلد</label>
+        <input type="text" id="country" placeholder="أدخل اسم البلد" required>
+      </div>
+      <div class="form-group">
+        <label for="province">المحافظة</label>
+        <select id="province" required>
+          <option value="">اختر المحافظة</option>
+          <option value="الاسكندرية">الاسكندرية</option>
+          <option value="أسوان">أسوان</option>
+          <option value="أسيوط">أسيوط</option>
+          <option value="الاقصر">الاقصر</option>
+          <option value="الشرقية">الشرقية</option>
+          <option value="الدقهلية">الدقهلية</option>
+          <option value="الغربية">الغربية</option>
+          <option value="الفيوم">الفيوم</option>
+          <option value="القاهرة">القاهرة</option>
+          <option value="القليوبية">القليوبية</option>
+          <option value="المنيا">المنيا</option>
+          <option value="المهرة">المهرة</option>
+          <option value="المنوفية">المنوفية</option>
+          <option value="بني سويف">بني سويف</option>
+          <option value="دمياط">دمياط</option>
+          <option value="سوهاج">سوهاج</option>
+          <option value="شمال سيناء">شمال سيناء</option>
+          <option value="جنوب سيناء">جنوب سيناء</option>
+          <option value="بورسعيد">بورسعيد</option>
+        </select>
       </div>
       <button type="submit">تسجيل</button>
     </form>
+    <p style="text-align:center;">لديك حساب؟ <a href="fourth.html" class="blue-link">تسجيل الدخول</a></p>
   </div>
 
   <script>
-    // التحقق من صحة الإدخال
-    document.querySelector('#registrationForm').addEventListener('submit', function(event) {
-      // التحقق من أن جميع البيانات مدخلة بشكل صحيح
-      const inputs = document.querySelectorAll('input, select');
-      let isValid = true;
-
-      inputs.forEach(input => {
-        if (!input.value) {
-          input.style.borderColor = 'red';
-          isValid = false;
-        } else {
-          input.style.borderColor = '';
-        }
-      });
-
-      if (!isValid) {
-        event.preventDefault();
-        alert('من فضلك، املأ جميع الحقول بشكل صحيح.');
-      } else {
-        window.location.href = 'third.html';
-      }
+    const form = document.getElementById('registrationForm');
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      // إضافة التحقق من البيانات هنا
+      alert('تم التسجيل بنجاح!');
+      form.reset();
     });
   </script>
 </body>
 </html>
+
