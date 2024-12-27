@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -5,80 +6,97 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>بطل الحكاية</title>
   <style>
+    /* إعدادات الخلفية */
     body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom, #ff5e57, #ffb3b3);
-      color: white;
+      font-family: "Arial", sans-serif;
+      margin: 0;
+      padding: 0;
       text-align: center;
-      padding: 20px;
+      color: white;
+      overflow: hidden;
+      background: linear-gradient(45deg, #4a90e2, #50e3c2);
+      background-size: 200% 200%;
+      animation: gradient 10s infinite;
     }
 
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* النصوص */
+    h1 {
+      margin-top: 20px;
+      font-size: 2.5rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin: 10px 0;
+    }
+
+    /* الزر */
     .hero-button {
       display: inline-block;
-      background-color: #e63946;
+      background-color: #1e3799;
       color: white;
       text-decoration: none;
       padding: 15px 30px;
       font-size: 1.5rem;
       font-weight: bold;
       border-radius: 10px;
-      margin: 20px 0;
-      transition: background-color 0.3s ease;
+      margin-top: 20px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      cursor: pointer;
     }
 
     .hero-button:hover {
-      background-color: #d62828;
+      background-color: #4a69bd;
+      transform: scale(1.1);
     }
 
-    .motivational-text {
-      margin-top: 50px;
-      font-size: 1.2rem;
-      line-height: 1.8;
+    /* زر تغيير الخلفية */
+    .toggle-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #f1c40f;
+      color: black;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
     }
 
-    .icons {
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-      gap: 30px;
+    .toggle-button:hover {
+      background-color: #e67e22;
     }
 
-    .icon {
-      width: 100px;
-      height: 100px;
-      background-color: #fff;
+    /* النقوش */
+    .pattern {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
       border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      animation: bounce 2s infinite;
+      transform: translate(-50%, -50%) rotate(45deg);
+      pointer-events: none;
+      z-index: -1;
     }
 
-    .icon.book {
-      background: linear-gradient(to bottom, #f39c12, #e67e22);
+    .pattern.blue {
+      background: radial-gradient(circle, rgba(0, 123, 255, 0.3), transparent);
+      animation: rotate 10s infinite linear;
     }
 
-    .icon.pen {
-      background: linear-gradient(to bottom, #3498db, #2980b9);
-    }
-
-    .icon span {
-      font-size: 2rem;
-      font-weight: bold;
-      color: #fff;
-    }
-
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-      }
-      40% {
-        transform: translateY(-15px);
-      }
-      60% {
-        transform: translateY(-10px);
-      }
+    @keyframes rotate {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to { transform: translate(-50%, -50%) rotate(360deg); }
     }
   </style>
 </head>
@@ -88,14 +106,28 @@
 
   <a href="next.html" class="hero-button">سجل هنا يا بطل الحكاية</a>
 
-  <div class="icons">
-    <div class="icon book"><span>📚</span></div>
-    <div class="icon pen"><span>✏️</span></div>
-  </div>
-
   <div class="motivational-text">
     <p>أنت بطل الحكاية، اسعَ وعافر.</p>
     <p>ربنا اختار لك الطريق ده عشان عارف إنك قدها!</p>
   </div>
+
+  <div class="pattern blue"></div>
+
+  <!-- زر تغيير الخلفية -->
+  <button class="toggle-button" onclick="toggleTheme()">تغيير الخلفية</button>
+
+  <script>
+    // تغيير الخلفية بين الفاتح والداكن
+    function toggleTheme() {
+      if (document.body.style.background === "white") {
+        document.body.style.background = "linear-gradient(45deg, #4a90e2, #50e3c2)";
+        document.body.style.color = "white";
+      } else {
+        document.body.style.background = "white";
+        document.body.style.color = "black";
+      }
+    }
+  </script>
 </body>
 </html>
+
