@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -84,29 +83,6 @@
       background-color: #4a69bd;
     }
 
-    .error {
-      color: red;
-      font-size: 1rem;
-    }
-
-    .toggle-button {
-      position: fixed;
-      top: 10px;
-      left: 10px;
-      background-color: #f1c40f;
-      color: black;
-      border: none;
-      padding: 10px 20px;
-      font-size: 1rem;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .toggle-button:hover {
-      background-color: #e67e22;
-    }
-
     .decorative-input {
       border-radius: 15px;
       box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -116,7 +92,6 @@
       font-size: 1rem;
       padding: 10px;
     }
-
   </style>
 </head>
 <body>
@@ -133,10 +108,6 @@
         <input type="text" id="studentSecondName" name="studentSecondName" class="decorative-input" required>
       </div>
       <div class="form-group">
-        <label for="studentThirdName">الاسم الثالث</label>
-        <input type="text" id="studentThirdName" name="studentThirdName" class="decorative-input" required>
-      </div>
-      <div class="form-group">
         <label for="studentFullName">الاسم الرباعي</label>
         <input type="text" id="studentFullName" name="studentFullName" class="decorative-input" required>
       </div>
@@ -144,217 +115,61 @@
         <label for="phoneNumber">رقم الهاتف</label>
         <input type="tel" id="phoneNumber" name="phoneNumber" class="decorative-input" pattern="\d{11}" required>
       </div>
-      <div class="form-group">
-        <label for="country">الدولة</label>
-        <input type="text" id="country" name="country" class="decorative-input" required>
-      </div>
-      <div class="form-group">
-        <label for="governorate">المحافظة</label>
-        <input type="text" id="governorate" name="governorate" class="decorative-input" required>
-      </div>
-      <div class="form-group">
-        <label for="schoolName">اسم المدرسة</label>
-        <input type="text" id="schoolName" name="schoolName" class="decorative-input" required>
-      </div>
-      <div class="form-group">
-        <label for="schoolAddress">عنوان المدرسة</label>
-        <input type="text" id="schoolAddress" name="schoolAddress" class="decorative-input" required>
-      </div>
 
-      <!-- خانة المرحلة و الصف -->
+      <!-- المرحلة والصف -->
       <div class="form-group">
-        <label for="studentGrade">المرحلة والصف</label>
+        <label for="studentGrade">المرحلة</label>
         <select id="studentGrade" name="studentGrade" class="decorative-input" required onchange="toggleClassSection()">
           <option value="">اختر المرحلة</option>
           <option value="primary">المرحلة الابتدائية</option>
           <option value="intermediate">المرحلة الإعدادية</option>
           <option value="secondary">المرحلة الثانوية</option>
         </select>
-        <select id="studentClass" name="studentClass" class="decorative-input" style="display:none;">
+        <select id="studentClassPrimary" name="studentClassPrimary" class="decorative-input" style="display:none;">
           <option value="">اختر الصف</option>
-          <option value="second">الصف الثانية</option>
-          <option value="third">الصف الثالثة</option>
+          <option value="first">الأول الابتدائي</option>
+          <option value="second">الثاني الابتدائي</option>
+          <option value="third">الثالث الابتدائي</option>
+          <option value="fourth">الرابع الابتدائي</option>
+          <option value="fifth">الخامس الابتدائي</option>
+          <option value="sixth">السادس الابتدائي</option>
         </select>
-        <select id="studentSpecialization" name="studentSpecialization" class="decorative-input" style="display:none;">
-          <option value="">اختر التخصص</option>
-          <option value="sciences">علمي علوم</option>
-          <option value="math">علمي رياضيات</option>
-          <option value="literature">أدبي</option>
+        <select id="studentClassIntermediate" name="studentClassIntermediate" class="decorative-input" style="display:none;">
+          <option value="">اختر الصف</option>
+          <option value="first">الأول الإعدادي</option>
+          <option value="second">الثاني الإعدادي</option>
+          <option value="third">الثالث الإعدادي</option>
+        </select>
+        <select id="studentClassSecondary" name="studentClassSecondary" class="decorative-input" style="display:none;">
+          <option value="">اختر الصف</option>
+          <option value="first">الأول الثانوي</option>
+          <option value="second">الثاني الثانوي</option>
+          <option value="third">الثالث الثانوي</option>
         </select>
       </div>
 
-      <!-- بيانات ولي الأمر -->
-      <h2>بيانات ولي الأمر</h2>
-      <div class="form-group">
-        <label for="parentFirstName">الاسم الأول</label>
-        <input type="text" id="parentFirstName" name="parentFirstName" class="decorative-input" required>
-      </div>
-      <div class="form-group">
-        <label for="parentSecondName">الاسم الثاني</label>
-        <input type="text" id="parentSecondName" name="parentSecondName" class="decorative-input" required>
-      </div>
-      <div class="form-group">
-        <label for="parentThirdName">الاسم الثالث</label>
-        <input type="text" id="parentThirdName" name="parentThirdName" class="decorative-input" required>
-      </div>
-      <div class="form-group">
-        <label for="parentFullName">الاسم الرباعي</label>
-        <input type="text" id="parentFullName" name="parentFullName" class="decorative-input" required>
-      </div>
-      <div class="form-group">
-        <label for="parentPhone">رقم المحمول</label>
-        <input type="tel" id="parentPhone" name="parentPhone" class="decorative-input" pattern="\d{11}" required>
-      </div>
-      <div class="form-group">
-        <label for="parentNationalID">رقم القومي</label>
-        <input type="text" id="parentNationalID" name="parentNationalID" class="decorative-input" pattern="\d{14}" required>
-      </div>
-      <div class="form-group">
-        <label for="parentBirthDay">تاريخ الميلاد</label>
-        <input type="number" id="parentBirthDay" name="parentBirthDay" placeholder="اليوم" class="decorative-input" required>
-        <select id="parentBirthMonth" name="parentBirthMonth" class="decorative-input" required>
-          <option value="">اختر الشهر</option>
-          <option value="January">يناير</option>
-          <option value="February">فبراير</option>
-          <option value="March">مارس</option>
-          <option value="April">أبريل</option>
-          <option value="May">مايو</option>
-          <option value="June">يونيو</option>
-          <option value="July">يوليو</option>
-          <option value="August">أغسطس</option>
-          <option value="September">سبتمبر</option>
-          <option value="October">أكتوبر</option>
-          <option value="November">نوفمبر</option>
-          <option value="December">ديسمبر</option>
-        </select>
-        <input type="number" id="parentBirthYear" name="parentBirthYear" placeholder="السنة" class="decorative-input" required>
-      </div>
-
-      <!-- تحميل شهاده الميلاد -->
-      <div class="form-group">
-        <label for="birthCertificate">تحميل شهادة الميلاد</label>
-        <input type="file" id="birthCertificate" name="birthCertificate" accept="image/*" class="decorative-input" required>
-      </div>
-
-      <!-- إرسال البيانات -->
       <button type="submit">تسجيل</button>
     </form>
-
-    <div id="error-message" class="error"></div>
   </div>
 
-  <button class="toggle-button" onclick="toggleTheme()">تغيير الخلفية</button>
-
   <script>
-    // تغيير الخلفية بين الفاتح والداكن
-    function toggleTheme() {
-      if (document.body.style.backgroundColor === "white") {
-        document.body.style.backgroundColor = "#f0f0f0";
-        document.body.style.color = "black";
-      } else {
-        document.body.style.backgroundColor = "black";
-        document.body.style.color = "white";
-      }
-    }
-
-    // إظهار أو إخفاء التخصص حسب المرحلة
     function toggleClassSection() {
       var grade = document.getElementById("studentGrade").value;
-      var classSection = document.getElementById("studentClass");
-      var specialization = document.getElementById("studentSpecialization");
 
-      if (grade === "secondary") {
-        classSection.style.display = "inline-block";
-      } else {
-        classSection.style.display = "none";
-        specialization.style.display = "none";
-      }
+      // Hide all class sections
+      document.getElementById("studentClassPrimary").style.display = "none";
+      document.getElementById("studentClassIntermediate").style.display = "none";
+      document.getElementById("studentClassSecondary").style.display = "none";
 
-      if (grade === "secondary" && document.getElementById("studentClass").value) {
-        specialization.style.display = "inline-block";
-      } else {
-        specialization.style.display = "none";
+      // Show the appropriate section
+      if (grade === "primary") {
+        document.getElementById("studentClassPrimary").style.display = "block";
+      } else if (grade === "intermediate") {
+        document.getElementById("studentClassIntermediate").style.display = "block";
+      } else if (grade === "secondary") {
+        document.getElementById("studentClassSecondary").style.display = "block";
       }
     }
-
-    // التحقق من صحة البيانات قبل الإرسال
-    document.getElementById("registrationForm").onsubmit = function(event) {
-      event.preventDefault();
-      let isValid = true;
-
-      // التحقق من أن جميع الحقول تم ملؤها بشكل صحيح
-      const requiredFields = document.querySelectorAll("input[required], select[required]");
-      requiredFields.forEach(field => {
-        if (!field.value) {
-          isValid
-    body {
-  font-family: "Arial", sans-serif;
-  margin: 0;
-  padding: 0;
-  text-align: center;
-  color: white;
-  background: linear-gradient(45deg, #ff6b6b, #f7b7a3, #9b59b6, #3498db);
-  background-size: 400% 400%;
-  animation: gradient 10s ease infinite;
-  overflow-y: auto; /* إزالة overflow: hidden للسماح بالتمرير */
-}
-
-.container {
-  width: 80%;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: rgba(0, 0, 0, 0.6);
-  border-radius: 10px;
-  overflow: auto; /* التأكد من السماح بالتمرير داخل الحاوية */
-  }
-          <select id="studentClass" name="studentClass" class="decorative-input" style="display:none;" onchange="toggleClassSection()">
-  <option value="">اختر الصف</option>
-  <option value="second">الصف الثاني</option>
-  <option value="third">الصف الثالث</option>
-</select>
-            // إظهار أو إخفاء التخصص حسب المرحلة والصف
-function toggleClassSection() {
-  var grade = document.getElementById("studentGrade").value;
-  var classSection = document.getElementById("studentClass");
-  var specialization = document.getElementById("studentSpecialization");
-
-  if (grade === "secondary") {
-    classSection.style.display = "inline-block";
-  } else {
-    classSection.style.display = "none";
-    specialization.style.display = "none";
-  }
-
-  if (grade === "secondary" && document.getElementById("studentClass").value) {
-    specialization.style.display = "inline-block";
-  } else {
-    specialization.style.display = "none";
-  }
-}
-
-// التحقق من صحة البيانات قبل الإرسال
-document.getElementById("registrationForm").onsubmit = function(event) {
-  event.preventDefault();
-  let isValid = true;
-
-  // التحقق من أن جميع الحقول تم ملؤها بشكل صحيح
-  const requiredFields = document.querySelectorAll("input[required], select[required]");
-  requiredFields.forEach(field => {
-    if (!field.value) {
-      isValid = false;
-      field.style.borderColor = "red";
-    } else {
-      field.style.borderColor = "";
-    }
-  });
-
-  // إظهار رسالة الخطأ إذا كانت البيانات غير صحيحة
-  if (!isValid) {
-    document.getElementById("error-message").innerText = "يرجى ملء جميع الحقول بشكل صحيح.";
-  } else {
-    document.getElementById("error-message").innerText = "";
-    // يمكنك إرسال البيانات هنا إذا كانت صحيحة
-    alert("تم التسجيل بنجاح!");
-  }
-};
-      
+  </script>
+</body>
+</html>
