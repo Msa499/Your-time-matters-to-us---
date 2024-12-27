@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
@@ -30,7 +30,7 @@
       border-radius: 10px;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       background-color: #fff;
-      border: 2px solid rgba(0, 0, 0, 0.3); /* برواز أسود شفاف */
+      border: 2px solid rgba(0, 0, 0, 0.3);
     }
 
     h1 {
@@ -203,41 +203,91 @@
         <label for="province">المحافظة</label>
         <select id="province" required>
           <option value="">اختر المحافظة</option>
-          <option value="الاسكندرية">الاسكندرية</option>
-          <option value="أسوان">أسوان</option>
-          <option value="أسيوط">أسيوط</option>
-          <option value="الاقصر">الاقصر</option>
-          <option value="الشرقية">الشرقية</option>
-          <option value="الدقهلية">الدقهلية</option>
-          <option value="الغربية">الغربية</option>
-          <option value="الفيوم">الفيوم</option>
           <option value="القاهرة">القاهرة</option>
-          <option value="القليوبية">القليوبية</option>
-          <option value="المنيا">المنيا</option>
-          <option value="المهرة">المهرة</option>
+          <option value="الجيزة">الجيزة</option>
+          <option value="الإسكندرية">الإسكندرية</option>
+          <option value="الدقهلية">الدقهلية</option>
+          <option value="الشرقية">الشرقية</option>
           <option value="المنوفية">المنوفية</option>
-          <option value="بني سويف">بني سويف</option>
+          <option value="القليوبية">القليوبية</option>
+          <option value="البحيرة">البحيرة</option>
+          <option value="الغربية">الغربية</option>
           <option value="دمياط">دمياط</option>
+          <option value="كفر الشيخ">كفر الشيخ</option>
+          <option value="الفيوم">الفيوم</option>
+          <option value="بني سويف">بني سويف</option>
+          <option value="المنيا">المنيا</option>
+          <option value="أسيوط">أسيوط</option>
           <option value="سوهاج">سوهاج</option>
+          <option value="قنا">قنا</option>
+          <option value="الأقصر">الأقصر</option>
+          <option value="أسوان">أسوان</option>
+          <option value="البحر الأحمر">البحر الأحمر</option>
+          <option value="الوادي الجديد">الوادي الجديد</option>
+          <option value="بورسعيد">بورسعيد</option>
+          <option value="الإسماعيلية">الإسماعيلية</option>
+          <option value="السويس">السويس</option>
           <option value="شمال سيناء">شمال سيناء</option>
           <option value="جنوب سيناء">جنوب سيناء</option>
-          <option value="بورسعيد">بورسعيد</option>
+          <option value="مطروح">مطروح</option>
         </select>
       </div>
-      <button type="submit">تسجيل</button>
+      <div class="form-group">
+        <button
+
+ <button type="submit">إرسال البيانات</button>
+      </div>
     </form>
-    <p style="text-align:center;">لديك حساب؟ <a href="fourth.html" class="blue-link">تسجيل الدخول</a></p>
+    <p style="text-align: center; margin-top: 20px;">
+      إذا كان لديك حساب بالفعل <a href="fourth.html" class="blue-link">اضغط هنا لتسجيل الدخول</a>
+    </p>
   </div>
 
   <script>
-    const form = document.getElementById('registrationForm');
-    form.addEventListener('submit', function(event) {
-      event.preventDefault();
-      // إضافة التحقق من البيانات هنا
-      alert('تم التسجيل بنجاح!');
-      form.reset();
+    document.getElementById('registrationForm').addEventListener('submit', function (event) {
+      event.preventDefault(); // منع إرسال النموذج بشكل افتراضي
+
+      // التحقق من البيانات
+      var firstName = document.getElementById('studentFirstName').value;
+      var secondName = document.getElementById('studentSecondName').value;
+      var thirdName = document.getElementById('studentThirdName').value;
+      var fourthName = document.getElementById('studentFourthName').value;
+      var phone = document.getElementById('studentPhone').value;
+      var nationalID = document.getElementById('studentNationalID').value;
+      var birthDay = document.getElementById('studentBirthDay').value;
+      var birthMonth = document.getElementById('studentBirthMonth').value;
+      var birthYear = document.getElementById('studentBirthYear').value;
+      var grade = document.getElementById('studentGrade').value;
+      var studentClass = document.getElementById('studentClass').value;
+      var schoolName = document.getElementById('schoolName').value;
+      var schoolAddress = document.getElementById('schoolAddress').value;
+      var province = document.getElementById('province').value;
+      var birthCertificate = document.getElementById('birthCertificate').files.length;
+
+      // تحقق من صحة الرقم القومي ورقم الهاتف
+      var phonePattern = /^\d{11}$/;
+      var nationalIDPattern = /^\d{14}$/;
+
+      if (!phonePattern.test(phone)) {
+        alert("رقم الهاتف غير صحيح. يجب أن يحتوي على 11 رقمًا.");
+        return;
+      }
+
+      if (!nationalIDPattern.test(nationalID)) {
+        alert("الرقم القومي غير صحيح. يجب أن يحتوي على 14 رقمًا.");
+        return;
+      }
+
+      // تحقق من وجود جميع الحقول المطلوبة
+      if (!firstName || !secondName || !thirdName || !fourthName || !phone || !nationalID || !birthDay || !birthMonth || !birthYear || !grade || !studentClass || !schoolName || !schoolAddress || !province || birthCertificate === 0) {
+        alert("يرجى ملء جميع الحقول المطلوبة.");
+        return;
+      }
+
+      // إرسال البيانات (يمكنك تعديل هذه الجزء للتعامل مع البيانات بشكل مناسب)
+      alert("تم التسجيل بنجاح!");
+      window.location.href = "third.html"; // الانتقال إلى صفحة تأكيد البيانات
     });
   </script>
 </body>
 </html>
-
