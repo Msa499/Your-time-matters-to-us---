@@ -14,6 +14,21 @@
       text-align: center;
       color: white;
       overflow: hidden;
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بطل الحكاية</title>
+  <style>
+    /* إعدادات الخلفية */
+    body {
+      font-family: "Arial", sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      color: white;
+      overflow: hidden;
       background: linear-gradient(45deg, #4a90e2, #50e3c2);
       background-size: 200% 200%;
       animation: gradient 10s infinite;
@@ -109,7 +124,8 @@
   <h1>مرحبًا يا بطل الحكاية!</h1>
   <p>جاهز تبدأ الطريق الصح؟ اضغط على الزر وسجل دلوقتي.</p>
 
-  <a href="next.html" class="hero-button">سجل هنا يا بطل الحكاية</a>
+  <!-- تعديل الرابط لفتح Second.html عند الضغط على الزر -->
+  <a href="Second.html" class="hero-button">سجل هنا يا بطل الحكاية</a>
 
   <div class="motivational-text">
     <p>أنت بطل الحكاية، اسعَ وعافر.</p>
@@ -126,11 +142,6 @@
     function toggleTheme() {
       document.body.classList.toggle("dark-mode");
       document.body.classList.toggle("light-mode");
-    }
-  </script>
-</body>
-</html>
-body.classList.toggle("light-mode");
     }
   </script>
 </body>
