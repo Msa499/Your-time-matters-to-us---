@@ -287,4 +287,74 @@
       requiredFields.forEach(field => {
         if (!field.value) {
           isValid
-    
+    body {
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  color: white;
+  background: linear-gradient(45deg, #ff6b6b, #f7b7a3, #9b59b6, #3498db);
+  background-size: 400% 400%;
+  animation: gradient 10s ease infinite;
+  overflow-y: auto; /* إزالة overflow: hidden للسماح بالتمرير */
+}
+
+.container {
+  width: 80%;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  overflow: auto; /* التأكد من السماح بالتمرير داخل الحاوية */
+  }
+          <select id="studentClass" name="studentClass" class="decorative-input" style="display:none;" onchange="toggleClassSection()">
+  <option value="">اختر الصف</option>
+  <option value="second">الصف الثاني</option>
+  <option value="third">الصف الثالث</option>
+</select>
+            // إظهار أو إخفاء التخصص حسب المرحلة والصف
+function toggleClassSection() {
+  var grade = document.getElementById("studentGrade").value;
+  var classSection = document.getElementById("studentClass");
+  var specialization = document.getElementById("studentSpecialization");
+
+  if (grade === "secondary") {
+    classSection.style.display = "inline-block";
+  } else {
+    classSection.style.display = "none";
+    specialization.style.display = "none";
+  }
+
+  if (grade === "secondary" && document.getElementById("studentClass").value) {
+    specialization.style.display = "inline-block";
+  } else {
+    specialization.style.display = "none";
+  }
+}
+
+// التحقق من صحة البيانات قبل الإرسال
+document.getElementById("registrationForm").onsubmit = function(event) {
+  event.preventDefault();
+  let isValid = true;
+
+  // التحقق من أن جميع الحقول تم ملؤها بشكل صحيح
+  const requiredFields = document.querySelectorAll("input[required], select[required]");
+  requiredFields.forEach(field => {
+    if (!field.value) {
+      isValid = false;
+      field.style.borderColor = "red";
+    } else {
+      field.style.borderColor = "";
+    }
+  });
+
+  // إظهار رسالة الخطأ إذا كانت البيانات غير صحيحة
+  if (!isValid) {
+    document.getElementById("error-message").innerText = "يرجى ملء جميع الحقول بشكل صحيح.";
+  } else {
+    document.getElementById("error-message").innerText = "";
+    // يمكنك إرسال البيانات هنا إذا كانت صحيحة
+    alert("تم التسجيل بنجاح!");
+  }
+};
+      
