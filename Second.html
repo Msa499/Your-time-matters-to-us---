@@ -273,10 +273,36 @@
         return;
       }
 
-      if (!nationalIDPattern.test(nationalID)) {
-        alert("الرقم القومي غير صحيح. يجب أن يحتوي على 14 رقمًا.");
-        return;
-      }
+            <!-- رقم الهاتف -->
+      <label for="studentPhone">رقم الهاتف</label>
+      <div style="display: flex;">
+        <select id="countryCode" style="width: 30%; margin-right: 5px;">
+          <option value="+20">مصر (+20)</option>
+          <option value="+213">الجزائر (+213)</option>
+          <option value="+973">البحرين (+973)</option>
+          <option value="+269">جزر القمر (+269)</option>
+          <option value="+253">جيبوتي (+253)</option>
+          <option value="+964">العراق (+964)</option>
+          <option value="+962">الأردن (+962)</option>
+          <option value="+965">الكويت (+965)</option>
+          <option value="+961">لبنان (+961)</option>
+          <option value="+218">ليبيا (+218)</option>
+          <option value="+222">موريتانيا (+222)</option>
+          <option value="+212">المغرب (+212)</option>
+          <option value="+968">عُمان (+968)</option>
+          <option value="+970">فلسطين (+970)</option>
+          <option value="+974">قطر (+974)</option>
+          <option value="+966">السعودية (+966)</option>
+          <option value="+252">الصومال (+252)</option>
+          <option value="+249">السودان (+249)</option>
+          <option value="+963">سوريا (+963)</option>
+          <option value="+216">تونس (+216)</option>
+          <option value="+971">الإمارات العربية المتحدة (+971)</option>
+          <option value="+967">اليمن (+967)</option>
+        </select>
+        <input type="tel" id="studentPhone" style="width: 70%;" placeholder="رقم الهاتف بدون رمز الدولة">
+      </div>
+      
 
       // تحقق من وجود جميع الحقول المطلوبة
       if (!firstName || !secondName || !thirdName || !fourthName || !phone || !nationalID || !birthDay || !birthMonth || !birthYear || !grade || !studentClass || !schoolName || !schoolAddress || !province || birthCertificate === 0) {
