@@ -139,10 +139,6 @@
         <input type="password" id="studentConfirmPassword" placeholder="أعد إدخال كلمة المرور" required>
       </div>
       <div class="form-group">
-        <label for="studentNationalID">الرقم القومي</label>
-        <input type="text" id="studentNationalID" placeholder="أدخل الرقم القومي" pattern="\\d{14}" required>
-      </div>
-      <div class="form-group">
         <label for="studentBirthDay">تاريخ الميلاد</label>
         <div style="display: flex; gap: 10px;">
           <input type="number" id="studentBirthDay" placeholder="اليوم" min="1" max="31" required>
@@ -214,8 +210,8 @@
           <option value="القاهرة">القاهرة</option>
           <option value="الجيزة">الجيزة</option>
           <option value="الإسكندرية">الإسكندرية</option>
-          <option value="الدقهلية">الدقهلية</</option>
-            <option value="الشرقية">الشرقية</option>
+          <option value="الدقهلية">الدقهلية</option>
+          <option value="الشرقية">الشرقية</option>
           <option value="المنوفية">المنوفية</option>
           <option value="المنيا">المنيا</option>
           <option value="أسيوط">أسيوط</option>
@@ -223,50 +219,35 @@
           <option value="الأقصر">الأقصر</option>
           <option value="سوهاج">سوهاج</option>
           <option value="أسوان">أسوان</option>
-          <option value="الغربية">الغربية</option>
-          <option value="الفيوم">الفيوم</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <button type="submit">تسجيل</button>
-      </div>
-    </form>
-    <p>هل لديك حساب؟ <a href="login.html" class="blue-link">تسجيل الدخول</a></p>
-  </div>
+        <option value="البحيرة">البحيرة</option>
+        <option value="الفيوم">الفيوم</option>
+        <option value="كفر الشيخ">كفر الشيخ</option>
+        <option value="الغربية">الغربية</option>
+        <option value="بني سويف">بني سويف</option>
+        <option value="سوهاج">سوهاج</option>
+        <option value="دمياط">دمياط</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <button type="submit">تسجيل</button>
+    </div>
+    <div class="form-group">
+      <p>هل لديك حساب؟ <a href="fourth.html" class="blue-link">دخول</a></p>
+    </div>
+    <div class="form-group">
+      <p>ليس لديك حساب؟ <a href="third.html" class="blue-link">تسجيل</a></p>
+    </div>
+  </form>
+</div>
 
-  <script>
-    document.getElementById("registrationForm").addEventListener("submit", function (event) {
-      event.preventDefault();
-
-      let isValid = true;
-
-      // التحقق من صحة البيانات المدخلة
-      const email = document.getElementById("studentEmail").value;
-      const password = document.getElementById("studentPassword").value;
-      const confirmPassword = document.getElementById("studentConfirmPassword").value;
-      const nationalID = document.getElementById("studentNationalID").value;
-      const birthDay = document.getElementById("studentBirthDay").value;
-      const birthYear = document.getElementById("studentBirthYear").value;
-
-      if (!email.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)) {
-        alert("البريد الإلكتروني غير صحيح");
-        isValid = false;
-      }
-
-      if (password !== confirmPassword) {
-        alert("كلمة المرور غير متطابقة");
-        isValid = false;
-      }
-
-      if (!nationalID.match(/^\d{14}$/)) {
-        alert("الرقم القومي غير صحيح");
-        isValid = false;
-      }
-
-      if (isValid) {
-        alert("تم التسجيل بنجاح");
-      }
-    });
-  </script>
+<script>
+  // يمكنك إضافة أي منطق أو التحقق من صحة البيانات هنا إذا كنت بحاجة إلى ذلك.
+  document.getElementById('registrationForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // لمنع إرسال النموذج لمراجعة البيانات
+    // هنا يمكنك إضافة الأكواد للتحقق من صحة المدخلات أو إرسال البيانات إلى الخادم.
+    alert('تم التسجيل بنجاح!');
+  });
+</script>
 </body>
 </html>
+
