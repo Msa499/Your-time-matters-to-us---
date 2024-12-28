@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إنشاء جدول مذاكرة</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+        }
+        select, input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .schedule-output {
+            margin-top: 20px;
+        }
+        .schedule-output table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .schedule-output table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .story-section {
+            margin-top: 30px;
+        }
+        .story-section h2 {
+            text-align: center;
+            color: #4CAF50;
+        }
+        .story {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .story-buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .story-buttons button {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .story-buttons button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>إنشاء جدول مذاكرة</h1>
+    <form id="studyForm">
+        <div class="form-group">
+            <label for="grade">الصف الدراسي:</label>
+            <select id="grade" name="grade">
+                <option value="1">أول ابتدائي</option>
+                <option value="2">ثاني ابتدائي</option>
+                <option value="3">ثالث ابتدائي</option>
+                <option value="4">رابع ابتدائي</option>
+                <option value="5">خامس ابتدائي</option>
+                <option value="6">سادس ابتدائي</option>
+                <option value="7">أول إعدادي</option>
+                <option value="8">ثاني إعدادي</option>
+                <option value="9">ثالث إعدادي</option>
+                <option value="10">أول ثانوي</option>
+                <option value="11">ثاني ثانوي</option>
+                <option value="12">ثالث ثانوي</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="subjects">المواد الدراسية (اكتبها متفرقة):</label>
+            <input type="text" id="subjects" name="subjects" placeholder="مثال: رياضيات, علوم, لغة عربية">
+        </div>
+
+        <div class="form-group">
+            <label for="studyTime">عدد ساعات الدراسة اليومية:</label>
+            <input type="number" id="studyTime" name="studyTime" placeholder="مثال: 4">
+        </div>
+
+        <button type="button" onclick="generateSchedule()">إنشاء الجدول</button>
+    </form>
+
+    <div class="schedule-output" id="scheduleOutput">
+        <!-- الجدول سيظهر هنا -->
+    </div>
+
+    <div class="story-section">
+        <h2>قصة اليوم</h2>
+        <div id="storyContainer">
+            <!-- القصة ستظهر هنا -->
+        </div>
+        <div class="story-buttons">
+            <button onclick="changeStory(-1)">القصة السابقة</button>
+            <button onclick="changeStory(1)">القصة التالية</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // قائمة القصص
+    var stories = [
+        "كان أحمد يذاكر بجد كل يوم ليحقق حلمه بأن يصبح مهندسًا عظيمًا، وسهر الليالي حتى وصل إلى هدفه.",
+        "فاطمة كانت تذاكر كل يوم وتساعد زملاءها، حتى تفوقت في كل المواد وحققت حلمها.",
+        "علي كان يحب الرياضيات، ودرس بجد حتى أصبح أفضل طالب في صفه.",
+        "سارة كانت تحب القراءة، فكلما انتهت من درس تبدأ في قراءة كتاب جديد.",
+        "محمد تعلم من خطأه وأصبح يذاكر بتركيز ويشجع أصدقاءه على الاستمرار.",
+        "منى كانت تعمل بجد كل يوم، وحصلت على المركز الأول في مدرستها.",
+        "يوسف كان يدرس بتركيز وحصل على أعلى درجات في جميع المواد.",
+        "دعاء تعلمت من تجربتها في الحياة أن النجاح لا يأتي إلا بالعمل الجاد.",
+        "أحمد كان يدرس الرياضيات كل يوم وحقق حلمه في أن يصبح مهندسًا.",
+        "مريم كانت تحب العلوم، وساعدت زملاءها في الفهم أفضل.",
+        "إبراهيم كان يقرأ كل ليلة قبل النوم، وعندما استيقظ كان يعزز معرفته.",
+        "سلمى كانت متميزة في كل مادة وكانت تحب المذاكرة وتساعد الآخرين.",
+        "حسن كان يذاكر بتركيز ويشجع أصدقاءه على المضي قدمًا.",
+        "عائشة كانت تحب الرياضة، ولكنها لم تتخلى عن دراستها وحققت نتائج مبهرة.",
+        "ريم كانت تتبع جدولًا ثابتًا لمذاكرتها وكان نجاحها ثمرة جهدها.",
+        "إيمان كانت تقسم وقتها بين الدراسة والراحة، وكانت تنجح في كل شيء.",
+        "أحمد تعلم أن النجاح يتطلب الكثير من العمل والتركيز، فكان دائمًا يذاكر.",
+        "شريف كان يحب العلوم، وكان دائمًا يشارك في الدروس العملية.",
+        "لين كانت تشجع أصدقاءها على المذاكرة وتحفزهم لتحقيق النجاح.",
+        "خالد قرر أن يلتزم بالدراسة بجد، وحقق نتائج رائعة.",
+        "هناء كانت تحب التحديات الدراسية، وواجهت كل صعوبة بقوة.",
+        "زهراء كانت دائمًا تشارك في الأنشطة المدرسية وتحقق النجاح.",
+        "حسن كان يسعى جاهدًا لتحقيق حلمه، وكان دائمًا يثق في نفسه.",
+        "سامي كان يلتزم بمواعيد الدراسة وأصبح أفضل في دراسته.",
+        "نوال كانت تنظم وقتها بين الدراسة والنشاطات المختلفة.",
+        "منال كانت تذاكر بجد وتصمم على الوصول إلى أهدافها.",
+        "طارق كان يحترم الوقت وكان دائمًا ينجز مهامه في الوقت المحدد.",
+        "ياسمين كانت دائمًا تتحلى بالصبر والجدية في الدراسة.",
+        "سارة قررت أن تكون أكثر التزامًا وتنظيمًا في الدراسة.",
+        "أمير كان يهتم بكل مادة ويمتاز بالتركيز في الدراسة.",
+        "منى كانت تشجع أصدقائها على العمل الجاد والابتكار في الدراسة.",
+        "أحمد لم يتوقف عن التعلم وكان دائمًا يبحث عن طرق جديدة لتحسين مستواه.",
+        "خالد كان يذاكر في الصباح الباكر وحقق نتائج مبهرة.",
+        "نور كانت تحب الدراسة وتتحدى الصعوبات لتحقق النجاح."
+    ];
+
+    // ترتيب القصة الحالية
+    var currentStoryIndex = 0;
+
+    // عرض القصة
+    function displayStory() {
+        var storyContainer = document.getElementById("storyContainer");
+        storyContainer.innerHTML = `<div class="story">${stories[currentStoryIndex]}</div>`;
+    }
+
+    // تغيير القصة عند النقر على الأزرار
+    function changeStory(direction) {
+        currentStoryIndex += direction;
+
+        // التأكد من أن القصة لا تتجاوز الحدود
+        if (currentStoryIndex < 0) {
+            currentStoryIndex = stories.length - 1;
+        } else if (currentStoryIndex >= stories.length) {
+            currentStoryIndex = 0;
+        }
+
+        // تحديث القصة
+        displayStory();
+    }
+
+    // تحديث القصة كل يوم الساعة 12:00 صباحًا
+    function updateStoryDaily() {
+        var today = new Date().toLocaleDateString();
+
+        // التحقق من تاريخ اليوم
+        var lastCheckedDate = localStorage.getItem('lastCheckedDate');
+        if (lastCheckedDate !== today) {
+            localStorage.setItem('lastCheckedDate', today);
+
+            // تحديث القصة إلى القصة التالية
+            currentStoryIndex = (currentStoryIndex + 1) % stories.length;
+        }
+
+        displayStory();
+    }
+
+    // استدعاء الدالة لتحديث القصة عند تحميل الصفحة
+    window.onload = function() {
+        updateStoryDaily();
+    };
+</script>
+  <div id="story-box">
+  <h2>قصة اليوم</h2>
+  <p id="story"></p>
+</div>
+
+<script>
+  const stories = [
+    "قصة 1: طالب اجتهد في دراسته وأصبح من الأوائل...",
+    "قصة 2: كانت هناك طالبة تتحدى الصعاب وتحقق النجاح...",
+    // أضف بقية القصص هنا
+  ];
+
+  function getStoryOfTheDay() {
+    const today = new Date();
+    const storyIndex = today.getDate() % stories.length;
+    document.getElementById("story").innerText = stories[storyIndex];
+  }
+
+  getStoryOfTheDay();
+</script>
+ 
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إنشاء جدول مذاكرة</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+        }
+        select, input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .schedule-output {
+            margin-top: 20px;
+        }
+        .schedule-output table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .schedule-output table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>إنشاء جدول مذاكرة</h1>
+    <form id="studyForm">
+        <div class="form-group">
+            <label for="grade">الصف الدراسي:</label>
+            <select id="grade" name="grade">
+                <option value="1">أول ابتدائي</option>
+                <option value="2">ثاني ابتدائي</option>
+                <option value="3">ثالث ابتدائي</option>
+                <option value="4">رابع ابتدائي</option>
+                <option value="5">خامس ابتدائي</option>
+                <option value="6">سادس ابتدائي</option>
+                <option value="7">أول إعدادي</option>
+                <option value="8">ثاني إعدادي</option>
+                <option value="9">ثالث إعدادي</option>
+                <option value="10">أول ثانوي</option>
+                <option value="11">ثاني ثانوي</option>
+                <option value="12">ثالث ثانوي</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="subjects">المواد الدراسية (اكتبها متفرقة):</label>
+            <input type="text" id="subjects" name="subjects" placeholder="مثال: رياضيات, علوم, لغة عربية">
+        </div>
+
+        <div class="form-group">
+            <label for="studyTime">عدد ساعات الدراسة اليومية:</label>
+            <input type="number" id="studyTime" name="studyTime" placeholder="مثال: 4">
+        </div>
+
+        <button type="button" onclick="generateSchedule()">إنشاء الجدول</button>
+    </form>
+
+    <div class="schedule-output" id="scheduleOutput">
+        <!-- الجدول سيظهر هنا -->
+    </div>
+</div>
+
+<script>
+    function generateSchedule() {
+        var grade = document.getElementById("grade").value;
+        var subjects = document.getElementById("subjects").value.split(',');
+        var studyTime = document.getElementById("studyTime").value;
+
+        if (subjects.length == 0 || studyTime == '') {
+            alert("يرجى إدخال جميع البيانات!");
+            return;
+        }
+
+        // تنظيم الوقت بناءً على المواد الدراسية
+        var hoursPerSubject = studyTime / subjects.length;
+
+        // إنشاء الجدول
+        var table = "<h3>جدول مذاكرة للصف " + grade + "</h3><table><tr><th>المادة</th><th>الوقت المخصص</th></tr>";
+
+        subjects.forEach(function(subject) {
+            table += "<tr><td>" + subject.trim() + "</td><td>" + hoursPerSubject + " ساعة</td></tr>";
+        });
+
+        table += "</table>";
+
+        // عرض الجدول في الصفحة
+        document.getElementById("scheduleOutput").innerHTML = table;
+
+        // إرسال إشعارات (مثال بسيط)
+        alert("تم إنشاء الجدول بنجاح! سيتم إرسال إشعار قبل كل درس."); 
+<div id="notifications">
+  <h3>الإشعارات</h3>
+  <ul id="notification-list"></ul>
+</div>
+
+<script>
+  // سيتم إضافة إشعارات بعد إضافة الجدول.
+  function addNotification(message) {
+    const ul = document.getElementById("notification-list");
+    const li = document.createElement("li");
+    li.appendChild(document.createTextNode(message));
+    ul.appendChild(li);
+  }
+
+  // اختبار الإشعار
+  addNotification("إشعار: لديك درس في الساعة 2:00 PM.");
+</script>
+  <div id="competitions">
+  <a href="fifth.html">المسابقات التعليمية</a>
+  </div>
+  <div id="profile">
+  <a href="second.html">الملف الشخصي</a>
+  </div>
+  
+</body>
+</html>
+
+#story-box {
+  background-color: #f0f8ff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+
+#schedule, #chat-box, #notifications, #competitions, #profile {
+  background-color: #ffffff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+
+h2, h3 {
+  color: #2c3e50;
+}
+
+textarea {
+  width: 100%;
+  height: 100px;
+}
+
+button {
+  background-color: #3498db;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+}
+
+a {
+  color: #3498db;
+  text-decoration: none;
+}
