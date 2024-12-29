@@ -1,136 +1,95 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>بطل الحكاية</title>
+  <title>صفحة الترحيب</title>
   <style>
-    /* إعدادات الخلفية */
+    /* الخلفية المتحركة */
     body {
-      font-family: "Arial", sans-serif;
       margin: 0;
       padding: 0;
-      text-align: center;
-      color: white;
+      font-family: 'Cairo', sans-serif;
       overflow: hidden;
-      background: linear-gradient(45deg, #4a90e2, #50e3c2);
-      background-size: 200% 200%;
-      animation: gradient 10s infinite;
+      background: url('https://www.publicdomainpictures.net/pictures/330000/velka/clock-1568984343lDR.jpg') no-repeat center center fixed;
+      background-size: cover;
+      animation: backgroundMove 10s infinite linear;
     }
 
-    @keyframes gradient {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    @keyframes backgroundMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 100% 100%; }
     }
 
-    /* النصوص */
+    /* النص العلوي */
     h1 {
-      margin-top: 20px;
+      color: #ffffff;
+      text-align: center;
       font-size: 2.5rem;
+      margin-top: 50px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
 
-    p {
-      font-size: 1.2rem;
-      margin: 10px 0;
-    }
-
-    .motivational-text {
-      font-size: 1.2rem;
-      margin: 20px 0;
-    }
-
-    /* الزر */
-    .hero-button {
-      display: inline-block;
-      background-color: #1e3799;
-      color: white;
-      text-decoration: none;
+    /* الأيقونة المزخرفة */
+    .icon-button {
+      display: block;
+      margin: 50px auto;
       padding: 15px 30px;
+      background: linear-gradient(135deg, #ff7e5f, #feb47b);
+      color: #fff;
+      border-radius: 25px;
+      text-align: center;
+      text-decoration: none;
       font-size: 1.5rem;
       font-weight: bold;
-      border-radius: 10px;
-      margin-top: 20px;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-      cursor: pointer;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .hero-button:hover {
-      background-color: #4a69bd;
+    .icon-button:hover {
       transform: scale(1.1);
+      box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.4);
     }
 
-    /* زر تغيير الخلفية */
-    .toggle-button {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      background-color: transparent;
-      border: none;
-      font-size: 2rem;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-
-    .toggle-button:before {
-      content: "\2600"; /* شمس */
-      color: #f1c40f;
-      transition: content 0.3s ease;
-    }
-
-    .dark-mode .toggle-button:before {
-      content: "\263D"; /* قمر */
-      color: #2c3e50;
-    }
-
-    .toggle-button:hover {
-      transform: scale(1.1);
-    }
-
-    /* النقوش */
-    .pattern {
+    /* النص السفلي */
+    .scroll-text {
       position: absolute;
-      top: 50%;
+      bottom: 20px;
       left: 50%;
-      width: 100%;
-      height: 100%;
-      background: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3) 20px, transparent 20px, transparent 40px);
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .dark-mode .pattern {
-      background: repeating-linear-gradient(45deg, rgba(0, 0, 255, 0.3), rgba(0, 0, 255, 0.3) 20px, transparent 20px, transparent 40px);
-    }
-
-    .light-mode .pattern {
-      background: repeating-linear-gradient(45deg, rgba(173, 216, 230, 0.3), rgba(173, 216, 230, 0.3) 20px, transparent 20px, transparent 40px);
+      transform: translateX(-50%);
+      color: #ffffff;
+      text-align: center;
+      font-size: 1.2rem;
+      line-height: 1.8;
+      max-width: 90%;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     }
   </style>
 </head>
 <body>
-  <h1>مرحبًا يا بطل الحكاية!</h1>
-  <p>جاهز تبدأ الطريق الصح؟ اضغط على الزر وسجل دلوقتي.</p>
 
-  <!-- تعديل الرابط لفتح Second.html عند الضغط على الزر -->
-  <a href="Second.html" class="hero-button">سجل هنا يا بطل الحكاية</a>
+  <h1>مرحبًا بك في رحلة النجاح</h1>
 
-  <div class="motivational-text">
-    <p>أنت بطل الحكاية، اسعَ وعافر.</p>
-    <p>ربنا اختار لك الطريق ده عشان عارف إنك قدها!</p>
+  <!-- أيقونة سجل هنا -->
+  <a href="#" class="icon-button" onclick="navigate()">سجل هنا يا بطل</a>
+
+  <!-- النص المتحرك -->
+  <div class="scroll-text">
+    <p>
+      انت بطل الحكايه اسعي و عافر ده ربنا اختارلك الطريق ده عشان عارف انك قدها.<br>
+      اسعي مش عشانك، اسعي عشان فرحة الوالد والوالدة، أهم حاجه في الدنيا.
+    </p>
   </div>
 
-  <div class="pattern"></div>
-
-  <!-- زر تغيير الخلفية -->
-  <button class="toggle-button" onclick="toggleTheme()"></button>
-
   <script>
-    // تغيير الخلفية بين الفاتح والداكن
-    function toggleTheme() {
-      document.body.classList.toggle("dark-mode");
-      document.body.classList.toggle("light-mode");
+    function navigate() {
+      // التحقق من التسجيل
+      const isRegistered = localStorage.getItem('isRegistered');
+      if (isRegistered) {
+        window.location.href = "third.html";
+      } else {
+        window.location.href = "second.html";
+      }
     }
   </script>
 </body>
